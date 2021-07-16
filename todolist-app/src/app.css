@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+}
+button{
+  outline: none;
+  border: 0;
+  cursor: pointer;
+}
+.navbar{
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  padding: 1em;
+  background-color:yellow;
+}
+.navbar-count{
+  display: inline-block;
+  text-align: center;
+  font-size: 2rem;
+  width:2.5rem;
+  height:2.5rem;
+  line-height:2.5rem;
+  margin-left:0.2em;
+  margin-right:0.5em;
+  border-radius:50%;
+  background-color:blueviolet;
+  color:#fff;
+}
+.navbar-logo{
+  margin-right: 0.5em;
+  color: green;
+}
+.habit{
+  font-size: 2.5rem;
+  padding: 0.5em;
+  list-style:none;
+}
+.habit-button{
+  font-size: 2.5rem;
+  margin: 0 0.1em;
+  background-color: transparent;
+}
+.habit-increase,
+.habit-decrease {
+  color: goldenrod
+}
+.habit-delete{
+  color: darkred
+}
+.habit-count{
+  display: inline-block;
+  text-align: center;
+  font-size: 2rem;
+  width:2.5rem;
+  height:2.5rem;
+  line-height:2.5rem;
+  margin-left:0.2em;
+  margin-right:0.5em;
+  border-radius:50%;
+  background-color:darkseagreen;
+  color:#fff;
+}
+.habits-reset{
+  padding: 1em;
+
+}
