@@ -23,7 +23,7 @@ const SimpleHabit = (props) => {
 
    return (
       <li className="habit">
-         <span className="habit-name">Reading</span>
+         <span ref={spanRef} className="habit-name">Reading</span>
          <span className="habit-counter">{count}</span>
          <button className="habit-button habit-increase" onClick={handleIncrement}>
          +
