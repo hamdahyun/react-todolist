@@ -1,29 +1,27 @@
-import React, { Component } from 'react';
+import React, { memo } from 'react';
 
-class HabitAddForm extends Component {
-    // react는 바로 Dom에 접근하지 않고 Dom을 만들어 연결하면 됨.
-    inputRef = React.createRef();
-    // input text값 초기화 방법1 
-    formRef = React.createRef();
+// class PureComponent가 있다면
+// function에서는 memo가 있다.
+// props의 데이터가 변경되지 않으면 업데이트를 안해줌.
+const HabitAddForm = memo(props => {
+  const inputRef = React.createRef();
+  const formRef = React.createRef();
 
-    onSubmit = event => {
-        event.preventDefault();
-        console.log(this.inputRef.current.value);
+  const onSubmit = event => {
+      event.preventDefault();
 
-        const name = this.inputRef.current.value;
-        name && this.props.onAdd(name);
+      const name = inputRef.current.value;
+      name && props.onAdd(name);
 
-        this.formRef.current.reset();
-
-        // this.inputRef.current.value = ''; // input text값 초기화 방법2
-    }
-    render() {
-      return (
-        <form ref={this.formRef} className="add-form" onSubmit={this.onSubmit}>
-            <input ref={this.inputRef} type="text" className="add-input" placeholder="Habit" />
-            <button className="add-button">Add</button>
-        </form>
-      )
-    }
+      formRef.current.reset();
   }
-  export default HabitAddForm;
+  return (
+    // 함수로 할 땐 this가 없어도 된다. 
+    <form ref={formRef} className="add-form" onSubmit={onSubmit}>
+        <input ref={inputRef} type="text" className="add-input" placeholder="Habit" />
+        <button className="add-button">Add</button>
+    </form>
+  )
+});
+
+export default HabitAddForm;

@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
 import './app.css';
-import Habits from './components/habits';
+// import Habit from './components/habit';
+import SimpleHabit from './components/simpleHabit';
 import Navbar from './components/navbar';
 
 class App extends Component {
@@ -14,49 +15,41 @@ class App extends Component {
   }
   
   handleIncrement = (habit) => {
-    console.log(`handleIncrement ${habit.name}`)
-    const habits = [...this.state.habits]; // 새로운 배열로 만들어 주는 것.
-    const index =habits.indexOf(habit);
-    habits[index].count++;
-
-    // key: value가 동일하면 생략이 가능.
-    // this.setState({habits: habits});
-    // key에는 key값이 value에는 배열이 들아가게 된다.
-    this.setState({habits});
+    // 변화하는 오브젝트를 따로 빼서 전달.
+    // 다시 새로운 오브젝트를 만드는것이 더 좋다.
+    const habits = this.state.habits.map(item => {
+      if(item.id === habit.id){
+        return {...habit, count: habit.count +1 }
+      } 
+      return item;
+    })
+    this.setState({ habits });
   };
   handleDecrement = (habit) => {
-    console.log(`handleDecrement ${habit.name}`)
-    const habits = [...this.state.habits]; // 새로운 배열로 만들어 주는 것.
-    const index = habits.indexOf(habit);
-    const count = habits[index].count -1;
-    habits[index].count = count< 0 ? 0 : count;
-    
-    this.setState({habits});
+    const habits = this.state.habits.map(item => {
+      if(item.id === habit.id){
+        const count = habit.count -1 ;
+        return {...habit, count: count < 0 ? 0 : count }
+      } 
+      return item;
+    })
+    this.setState({ habits });
    
   };
   handleDelete = (habit) => {
-    console.log(`handleDelete ${habit.name}`)
-    // const habits = [...this.state.habits]; // 새로운 배열로 만들어 주는 것.
-    // const index = habits.indexOf(habit);
-    // delete habits[index];
-
-    // filter, map은 무조건 변수에 담아야 한다.
-    // why? 새로운 배열이 새로 생겨서 
-    // filter는 true, false를 반환하고 
-    // map은 값으로 나옴. 
-
     const habits = this.state.habits.filter(item => item.id !== habit.id);
     this.setState({habits});
   };
-
   handleAdd = name => {
     const habits = [...this.state.habits, {id: Date.now(), name, count: 0}]
     this.setState({habits});
   }
-
   handleReset = () =>{
     const habits = this.state.habits.map(habit => {
-      habit.count = 0;
+      // return {...habit, count : 0 }; //전부다 업데이트 된다.
+      if (habit.count !== 0 ) {
+        return {...habit, count : 0 };
+      }
       return habit;
     });
     this.setState({ habits });
@@ -65,16 +58,17 @@ class App extends Component {
     return (
       <>
         <Navbar totalCount={this.state.habits.filter(item => item.count > 0).length} />
-        <Habits 
+        {/* <Habit 
         habits={this.state.habits} 
         onIncrement={this.handleIncrement} 
         onDecrement={this.handleDecrement} 
         onDelete={this.handleDelete}
         onAdd={this.handleAdd}
         onReset={this.handleReset}
-        />
+        /> */}
+        <SimpleHabit />
       </>
     )
   }
 }
-export default App;
+export default App

@@ -20,7 +20,6 @@ class Habits extends Component {
   }
 
   render() {
-    // console.log(`app-> habits`, this.props)
     return (
       <>
         <HabitAddForm onAdd={this.handleAdd}/>
